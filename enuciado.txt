@@ -1,0 +1,4 @@
+-Se crean tres procesos:
+	-Servidor: TCP
+	-Auxiliar: Piensa la clave, y Srvidor y cliente se la piden(UDP).Manda la clave en base64 y un hash(MD5)
+	-Cliente: TCP
