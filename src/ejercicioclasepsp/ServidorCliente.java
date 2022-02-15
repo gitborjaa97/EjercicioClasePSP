@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.security.MessageDigest;
@@ -29,51 +31,41 @@ public class ServidorCliente {
         }
         DatagramPacket recibido = recibirMensaje( s);
         configurarDireccion(recibido);
-        byte[] claveBase64 = limpiarMensaje(recibido.getData());
+        byte[] claveBase64 = recibido.getData();
         enviarMensaje(s, ipServidor, puerto);
         recibido = recibirMensaje( s);
-        byte[] hash = limpiarMensaje(recibido.getData());
-        boolean valido = validarHash(hash, claveBase64);
+        byte[] hash = recibido.getData();
+        DatosServidorCliente datos = new DatosServidorCliente(claveBase64, hash);
         
-           
-    }
-    
-    private static SecretKeySpec reconstruirClave(){
+        ServerSocket sSocket = getSSocket(7800);
         
-    }
-    
-    private static byte [] limpiarMensaje(byte [] mensaje){
-        int longitud = 0;
-        for (int i = mensaje.length -1; i >= 0 && longitud == 0; --i) {
-            if(mensaje[i] != 0){
-                longitud = i +1;
-            }
+        while (true) {            
+            Socket socket = aceptarSocket(sSocket);
+            Thread hilo = new Thread(new HiloServidorNormal(socket, datos));
+            hilo.start();
         }
-        byte[] mensajeLimpio = new byte[longitud];
-        for (int i = 0; i < longitud; i++) {
-            mensajeLimpio[i] = mensaje[i];
-        }
-        return mensajeLimpio;
     }
     
-    private static boolean validarHash(byte [] hash, byte [] clave){
-        String sHash = Base64.getEncoder().encodeToString(hash);        
-        String sClave = Base64.getEncoder().encodeToString(obtenerHash(clave));
-        
-        return sHash.equals(sClave);
-    }
-    
-    private static byte [] obtenerHash(byte [] recurso){
-        byte [] hash =null;
+    private static Socket aceptarSocket(ServerSocket ss){
+        Socket s = null;
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(recurso);
-            hash = md.digest();
-        } catch (NoSuchAlgorithmException ex) {
+            s = ss.accept();
+        } catch (IOException ex) {
+            Logger.getLogger(ServidorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        return s;
+    }
+    
+    private static ServerSocket getSSocket(int port){
+        ServerSocket s = null;
+        try {
+            s = new ServerSocket(port);
+        } catch (IOException ex) {
             Logger.getLogger(ServidorCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return hash;
+        return s;
     }
+    
     
     private static DatagramSocket crearSocket(){
         DatagramSocket s = null;

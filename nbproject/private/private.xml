@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Alumno/Documents/NetBeansProjects/EjercicioClasePSP/src/ejercicioclasepsp/DatosServidorCliente.java</file>
-            <file>file:/C:/Users/Alumno/Documents/NetBeansProjects/EjercicioClasePSP/src/ejercicioclasepsp/HiloServidorNormal.java</file>
-            <file>file:/C:/Users/Alumno/Documents/NetBeansProjects/EjercicioClasePSP/src/ejercicioclasepsp/ServidorCliente.java</file>
+            <file>file:/D:/Programas/NetBeans/PROYECTOS/EjercicioClasePSP/src/ejercicioclasepsp/HiloServidorNormal.java</file>
+            <file>file:/D:/Programas/NetBeans/PROYECTOS/EjercicioClasePSP/src/ejercicioclasepsp/Datos.java</file>
+            <file>file:/D:/Programas/NetBeans/PROYECTOS/EjercicioClasePSP/src/ejercicioclasepsp/ServidorClaves.java</file>
+            <file>file:/D:/Programas/NetBeans/PROYECTOS/EjercicioClasePSP/src/ejercicioclasepsp/Cliente.java</file>
+            <file>file:/D:/Programas/NetBeans/PROYECTOS/EjercicioClasePSP/src/ejercicioclasepsp/ServidorCliente.java</file>
         </group>
     </open-files>
 </project-private>
